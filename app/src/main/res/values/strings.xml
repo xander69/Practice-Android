@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyTelegram</string>
+    <string name="fragment_chats">Чаты</string>
+    <string name="fragment_settings">Настройки</string>
 </resources>

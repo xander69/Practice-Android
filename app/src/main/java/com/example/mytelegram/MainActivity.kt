@@ -1,11 +1,12 @@
 package com.example.mytelegram
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.mytelegram.databinding.ActivityMainBinding
+import com.example.mytelegram.ui.ChatsFragment
+import com.example.mytelegram.ui.SettingsFragment
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
@@ -41,6 +42,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFunc() {
         setSupportActionBar(mToolbar)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.dataContainer, ChatsFragment())
+            .commit()
         createHeader()
         createDrawer()
     }
@@ -121,13 +125,20 @@ class MainActivity : AppCompatActivity() {
                     .withSelectable(false)
                     .withIcon(R.drawable.ic_menu_help)
             )
-            .withOnDrawerItemClickListener(object :Drawer.OnDrawerItemClickListener{
+            .withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
                 override fun onItemClick(
                     view: View?,
                     position: Int,
                     drawerItem: IDrawerItem<*>
                 ): Boolean {
-                    Toast.makeText(applicationContext, position.toString(), Toast.LENGTH_LONG).show()
+                    when (position) {
+                        7 -> supportFragmentManager.beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.dataContainer, SettingsFragment())
+                            .commit()
+                    }
+//                    Toast.makeText(applicationContext, position.toString(), Toast.LENGTH_LONG)
+//                        .show()
                     return false
                 }
             })
